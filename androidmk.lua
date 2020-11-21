@@ -6,6 +6,8 @@
 
 premake.extensions.androidmk = premake.extensions.androidmk or {}
 local androidmk = premake.extensions.androidmk
+local clang = premake.tools.clang
+local gcc = premake.tools.gcc
 
 include "_preload.lua"
 
@@ -37,17 +39,12 @@ androidmk.cflags = {
     UndefinedIdentifiers = "-Wundef",
     --LinkTimeOptimization = "-flto",
   },
-  warnings = {
-    Extra = "-Wall -Wextra",
-    Off = "-w",
-  }
+  floatingpoint = clang.shared.floatingpoint,
+  warnings = clang.shared.warnings
 }
 
 androidmk.cppflags = {
-  flags = {
-    ["C++11"] = "-std=c++11",
-    ["C++14"] = "-std=c++14",
-  }
+  cppdialect = gcc.cxxflags.cppdialect
 }
 
 
